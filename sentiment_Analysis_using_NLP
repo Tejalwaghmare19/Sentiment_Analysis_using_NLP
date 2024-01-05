@@ -1,0 +1,28 @@
+import nltk
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+nltk.download('vader_lexicon')
+
+def analyze_sentiment(text):
+    sid = SentimentIntensityAnalyzer()
+    sentiment_scores = sid.polarity_scores(text)
+
+    if sentiment_scores['compound'] >= 0.05:
+        return 'Positive'
+    elif sentiment_scores['compound'] <= -0.05:
+        return 'Negative'
+    else:
+        return 'Neutral'
+
+# Example usage
+reviews = [
+    "I love this product! It's amazing.",
+    "The service was terrible. I'm never coming back.",
+    "This movie is neither good nor bad.",
+    "The weather today is okay."
+]
+
+for review in reviews:
+    sentiment = analyze_sentiment(review)
+    print(f'Review: "{review}"\nSentiment: {sentiment}\n')
+
